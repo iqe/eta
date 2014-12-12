@@ -1,0 +1,32 @@
+div class="page-header"
+  h1 Graph
+p
+  a href="/variables" Zurück zur Variablenauswahl
+- if combined
+    div id="graph" style="height: 500px; width: 900px"
+    javascript:
+      g = new Dygraph(
+            document.getElementById("graph"),
+            '/csv?vars=#{variables.map {|v| v[:id].to_s}.join(",")}&from=#{from}&to=#{to}',
+            {
+            legend: 'follow',
+            labelsSeparateLines: true
+            }          // options
+          );
+- else
+    - for variable in variables
+      h2 = "#{variable[:name]} (#{variable[:unit]})"
+      - if variable[:unit] == "B"
+        div id="graph#{variable[:id]}" style="height: 100px; width: 900px"
+      - else
+        div id="graph#{variable[:id]}" style="height: 500px; width: 900px"
+      javascript:
+        g = new Dygraph(
+            document.getElementById("graph#{variable[:id]}"),
+            '/csv?vars=#{variable[:id]}&from=#{from}&to=#{to}',
+            {
+            legend: 'follow',
+            labelsSeparateLines: true
+            }          // options
+          );
+
