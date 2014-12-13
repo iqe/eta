@@ -35,7 +35,7 @@ get '/csv' do
 end
 
 get '/variables' do
-  rows = DB.fetch("SELECT * FROM variables")
+  rows = DB.fetch("SELECT * FROM variables ORDER BY name")
   slim :variables, :locals => {:variables => rows}
 end
 

@@ -1,14 +1,16 @@
 div class="page-header"
-  h1 ETA Variables
+  h1 ETA Hack
+
 form action="/graph"
+  h2 Schritt 1: Messwerte auswählen
   table class="table table-striped table-hover"
     thead
       tr
         th #
         th ID
         th Name
-        th Unit
-        th Interval (Min.)
+        th Einheit
+        th Intervall (Min.)
     tbody
        - for var in variables 
         tr
@@ -17,15 +19,19 @@ form action="/graph"
           td = var[:name]
           td = var[:unit]
           td = var[:interval]
+  h2 Schritt 2: Zeitraum auswählen
+  div.radio 
+    label
+      input type="radio" name="q" value="age" checked="checked" Die letzten
+      input type="number" name="days" style="width: 4em; margin-left: 0.3em; margin-right: 0.3em" value="30" Tage
+  div.radio
+    label
+      input type="radio" name="q" value="timespan" Von
+      input style="width: 8em; margin-left: 0.3em; margin-right: 0.3em" name="from" bis
+      input style="width: 8em; margin-left: 0.3em; margin-right: 0.3em" name="to"
+  div.checkbox
+    label
+      input type="checkbox" name="combined" Ausgewählte Variablen kombiniert in einem Diagramm
   p
-    input type="radio" name="q" value="age" checked="checked"
-    input type="number" name="days" value="30" days back
-  p
-    input type="radio" name="q" value="timespan" From
-    input type="date" name="from" to
-    input type="date" name="to"
-  p
-    input type="checkbox" name="combined" Combined Graph
-  p
-    input type="submit"
+    button type="submit" class="btn btn-primary" Diagramm(e) anzeigen
 
