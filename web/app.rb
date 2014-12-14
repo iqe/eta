@@ -54,5 +54,12 @@ get '/graph' do
   
   rows = DB.fetch("SELECT * FROM variables WHERE id IN ?", variable_ids)
   
-  slim :graph, :locals => {:variables => rows, :from => from, :to => to, :combined => combined}
+  legend = DB.fetch("SELECT DISTINCT(str_value), dec_value, variables.id AS variable_id, `name` FROM `values`, variables " +
+                    "WHERE variables.id = variable_id AND unit = 'B' ORDER BY `name`, dec_value and variable_id in ?",
+                    variable_ids)
+
+  legend = legend.to_a.group_by {|e| e[:variable_id]}
+
+  slim :graph, :locals => {:variables => rows, :from => from, :to => to, :legend => legend, :combined => combined}
 end
+
