@@ -7,6 +7,10 @@ require 'slim'
 
 DB = Sequel.mysql(:user => 'root', :password => 'root', :host => 'localhost', :database => 'eta')
 
+get '/' do
+  redirect '/variables'
+end
+
 get '/csv' do
   variable_ids = params[:vars].split(",").map {|id| id.to_i} || []
   from = Date.parse(params[:from]) rescue Date.today << 1 # 1 month back
