@@ -5,7 +5,7 @@ require 'sinatra'
 require 'sequel'
 require 'slim'
 
-DB = Sequel.mysql(:user => 'root', :password => 'root', :host => 'localhost', :database => 'eta')
+DB = Sequel.mysql(:user => 'eta', :password => 'eta', :host => 'localhost', :database => 'eta')
 
 get '/' do
   redirect '/variables'

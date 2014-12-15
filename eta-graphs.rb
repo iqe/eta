@@ -26,7 +26,7 @@ def parse_value(element)
 end
 
 
-DB = Sequel.mysql(:user => 'root', :password => 'root', :host => 'localhost', :database => 'eta')
+DB = Sequel.mysql(:user => 'eta', :password => 'eta', :host => 'localhost', :database => 'eta')
 
 DB.fetch("SELECT *, #{Time.now.min} % `interval` = 0 AS run_now FROM variables HAVING run_now = 1") do |row|
   begin
