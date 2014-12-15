@@ -1,0 +1,14 @@
+---
+ environment: production
+ chdir: /opt/eta/web
+ address: 127.0.0.1
+ user: www-data
+ group: www-data
+ port: 4567
+ pid: /opt/eta/var/thin.pid
+ rackup: /opt/eta/web/config.ru
+ log: /opt/eta/log/thin.log
+ max_conns: 16
+ timeout: 30
+ max_persistent_conns: 8
+ daemonize: true
