@@ -13,6 +13,7 @@ div.row
               '/csv?vars=#{variables.map {|v| v[:id].to_s}.join(",")}&from=#{from}&to=#{to}',
               {
               legend: 'always',
+              connectSeparatedPoints: true,
               labelsSeparateLines: true
               }          // options
             );
