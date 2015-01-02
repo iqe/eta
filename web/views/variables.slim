@@ -43,3 +43,6 @@ form action="/graph"
     $(".days").click(function () {
       $("#r_days").prop('checked', true);
     });
+    $("tr").click(function () {
+      $(this).find('input:checkbox').trigger('click');
+    });
