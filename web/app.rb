@@ -53,7 +53,7 @@ get '/graph' do
     to = Date.today + 1
   when "timespan"
     from = Date.parse(params[:from])
-    to = Date.parse(params[:to])
+    to = Date.parse(params[:to]) + 1 # +1 to include values from the given day
   end
   
   rows = DB.fetch("SELECT * FROM variables WHERE id IN ?", variable_ids)

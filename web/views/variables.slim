@@ -22,13 +22,13 @@ form action="/graph"
   h2 Schritt 2: Zeitraum auswählen
   div.radio 
     label
-      input type="radio" name="q" value="age" checked="checked" Die letzten
-      input type="number" name="days" style="width: 4em; margin-left: 0.3em; margin-right: 0.3em" value="30" Tage
+      input id="r_days" type="radio" name="q" value="age" checked="checked" Die letzten
+      input.days type="number" name="days" style="width: 4em; margin-left: 0.3em; margin-right: 0.3em" value="30" Tage
   div.radio
     label
-      input type="radio" name="q" value="timespan" Von
-      input style="width: 8em; margin-left: 0.3em; margin-right: 0.3em" name="from" bis
-      input style="width: 8em; margin-left: 0.3em; margin-right: 0.3em" name="to"
+      input id="r_timespan" type="radio" name="q" value="timespan" Von
+      input.timespan style="width: 8em; margin-left: 0.3em; margin-right: 0.3em" name="from" placeholder="TT.MM.JJJJ" bis
+      input.timespan style="width: 8em; margin-left: 0.3em; margin-right: 0.3em" name="to" placeholder="TT.MM.JJJJ"
   div.checkbox
     label
       input type="checkbox" name="combined" Ausgewählte Variablen kombiniert in einem Diagramm
@@ -36,3 +36,10 @@ form action="/graph"
     button type="submit" class="btn btn-primary"
       span class="glyphicon glyphicon-stats" aria-hidden="true"
       |  Diagramm(e) anzeigen
+  javascript:
+    $(".timespan").click(function () {
+      $("#r_timespan").prop('checked', true);
+    });
+    $(".days").click(function () {
+      $("#r_days").prop('checked', true);
+    });
