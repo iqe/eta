@@ -37,6 +37,16 @@ form action="/graph"
       span class="glyphicon glyphicon-stats" aria-hidden="true"
       |  Diagramm(e) anzeigen
   javascript:
+    function toggleRowBackground(cb) {
+      var row = $(cb).closest("tr");
+      if (row.css("background-color") == "rgb(51, 122, 183)") {
+        row.removeAttr("style");
+       } else {
+        row.css("background-color", "#337ab7"); // == rgb(51, 122, 183)
+        row.css("color", "#fff");
+       }
+      cb.focus();
+    }
     $(".timespan").click(function () {
       $("#r_timespan").prop('checked', true);
     });
@@ -44,9 +54,18 @@ form action="/graph"
       $("#r_days").prop('checked', true);
     });
     $("tr input:checkbox").click(function(e) {
+      toggleRowBackground($(this));
       e.stopPropagation(); // Required to avoid triggering the "tr" click callback
     });
     $("tr").click(function (e) {
       var cb = $(this).find('input:checkbox')[0];
       cb.checked = !cb.checked;
+      toggleRowBackground(cb);
+    });
+    $(document).ready(function() {
+      $("tr input:checkbox").each(function(index, cb) {
+        if (cb.checked) {
+          toggleRowBackground(cb);
+        }
+      });
     });
