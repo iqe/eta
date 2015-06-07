@@ -55,8 +55,8 @@ DB.fetch("SELECT *, #{Time.now.min} % `interval` = 0 AS run_now FROM variables H
     value_xml = read_value(uri)
     value = parse_value(value_xml)
 
-#    if last_value != value[:dec_value]
     last_value = DB.fetch("SELECT * FROM `values` WHERE variable_id = ? ORDER BY created_at DESC LIMIT 1", row[:id]).first
+#    if last_value[:dec_value] != value[:dec_value]
       record = {:variable_id => row[:id], :created_at => Time.now}.merge(value)
       DB[:values].insert(record)
 #    end
