@@ -25,16 +25,16 @@ get '/csv' do
   DB.fetch("SELECT * FROM `values` WHERE variable_id in ? AND created_at BETWEEN ? AND ?",
       variable_ids, from, to) do |row|
     csv << row[:created_at].to_s << ","
-    
+
     column_count = variable_ids.length
     column_index = variable_ids.find_index row[:variable_id]
-    
+
     columns = Array.new(column_count)
     columns[column_index] = row[:dec_value].to_s
-    
+
     csv << columns.join(",") << "\n"
   end
-  
+
   content_type :csv
   csv
 end
@@ -56,9 +56,9 @@ get '/graph' do
     from = Date.parse(params[:from])
     to = Date.parse(params[:to]) + 1 # +1 to include values from the given day
   end
-  
+
   rows = DB.fetch("SELECT * FROM variables WHERE id IN ?", variable_ids)
-  
+
   legend = DB.fetch("SELECT DISTINCT(str_value), dec_value, variables.id AS variable_id, `name` FROM `values`, variables " +
                     "WHERE variables.id = variable_id AND unit = 'B' ORDER BY `name`, dec_value and variable_id in ?",
                     variable_ids)

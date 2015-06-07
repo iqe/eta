@@ -14,14 +14,14 @@ end
 def parse_value(element)
   unit = element["unit"]
   str_value = element["strValue"]
-  
+
   raw_value = element.text.gsub(',', '.').to_f
-  
+
   scale = element["scaleFactor"].to_f
   offset = element["advTextOffset"].to_f
-  
+
   dec_value = (raw_value - offset) / scale
-  
+
   {:str_value => str_value, :dec_value => dec_value}
 end
 
