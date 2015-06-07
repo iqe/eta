@@ -1,0 +1,6 @@
+#!/bin/sh
+# This script is called with the notification message as parameter.
+# Do whatever you want in here.
+
+echo "Notification script called. Message:"
+echo $1
