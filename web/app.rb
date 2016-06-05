@@ -2,6 +2,7 @@
 # encoding: utf-8
 require 'rubygems'
 require 'date'
+require 'stringio'
 require 'sinatra'
 require 'sequel'
 require 'slim'
@@ -21,10 +22,13 @@ get '/csv' do
   variable_ids = variables.map {|v| v[:id]}
   variable_names = variables.map {|v| v[:name]}
 
-  csv = "Created At," << variable_names.join(",") << "\n"
+  csv = StringIO.new
+  csv << "Created At" << ","
+  variable_names.each {|name| csv << name << ","}
+  csv << "\n"
+
   DB.fetch("SELECT * FROM `values` WHERE variable_id in ? AND created_at BETWEEN ? AND ?",
       variable_ids, from, to) do |row|
-    csv << row[:created_at].to_s << ","
 
     column_count = variable_ids.length
     column_index = variable_ids.find_index row[:variable_id]
@@ -32,11 +36,13 @@ get '/csv' do
     columns = Array.new(column_count)
     columns[column_index] = row[:dec_value].to_s
 
-    csv << columns.join(",") << "\n"
+    csv << row[:created_at].to_s << ","
+    columns.each {|column| csv << column << ","}
+    csv << "\n"
   end
 
   content_type :csv
-  csv
+  csv.string
 end
 
 get '/variables' do
