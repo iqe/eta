@@ -23,6 +23,14 @@ def parse_value(element)
 
   dec_value = (raw_value - offset) / scale
 
+  str_value.gsub!('ä', 'ae')
+  str_value.gsub!('ö', 'oe')
+  str_value.gsub!('ü', 'ue')
+  str_value.gsub!('ß', 'ss')
+  str_value.gsub!('Ä', 'Ae')
+  str_value.gsub!('Ö', 'Oe')
+  str_value.gsub!('Ü', 'Ue')
+
   {:str_value => str_value, :dec_value => dec_value}
 end
 
